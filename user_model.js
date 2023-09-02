@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
   },
   score: Number,
   date: {
-    type: Date,
+    type: String,
     // default: Date.now.toString.toDateString(), //Wil change later
   },
 });
