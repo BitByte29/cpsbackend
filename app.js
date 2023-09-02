@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/play", control.getData);
-
 app.get("/deleteall", control.deleteAll);
+app.get("/clear", control.clearList);
 
 app.post("/play", control.postData);
 

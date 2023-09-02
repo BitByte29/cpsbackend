@@ -14,6 +14,27 @@ exports.getData = async (req, res) => {
   }
 };
 
+exports.clearList = async (req, res) => {
+  try {
+    if (req.query.pass === "hunter29") {
+      const data = await User.find().sort({ score: -1 });
+      var x = 15;
+      if (data.length >= x) {
+        const limit = data[x - 1].score;
+        await User.deleteMany({ score: { $lt: limit } });
+      }
+      res.status(200).json({
+        message: "List cleared successfully",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      message: "Failed",
+      error: err.message,
+    });
+  }
+};
+
 exports.postData = async (req, res) => {
   try {
     var data = await User.create(req.body);
