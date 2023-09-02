@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const app = require("./app");
 
+dotenv.config({ path: "./config.env" });
 //DB URL
-// const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.OTHER_PASS);
-const DB =
-  "mongodb+srv://Hritik:mongodbpass@cluster0.iny9g1z.mongodb.net/?retryWrites=true&w=majority";
+const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.PASS);
+// const DB =
+//   "mongodb+srv://<>:<>@cluster0.iny9g1z.mongodb.net/?retryWrites=true&w=majority";
 // console.log(DB);
 // DB connection
 mongoose
