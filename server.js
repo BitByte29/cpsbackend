@@ -5,10 +5,7 @@ const app = require("./app");
 dotenv.config({ path: "./config.env" });
 //DB URL
 const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.PASS);
-// const DB =
-//   "mongodb+srv://<>:<>@cluster0.iny9g1z.mongodb.net/?retryWrites=true&w=majority";
-// console.log(DB);
-// DB connection
+
 mongoose
   .connect(DB, {
     useUnifiedTopology: true,
