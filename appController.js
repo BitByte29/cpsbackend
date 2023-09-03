@@ -16,7 +16,7 @@ exports.getData = async (req, res) => {
 
 exports.clearList = async (req, res) => {
   try {
-    if (req.query.pass === "hunter29") {
+    if (req.query.pass === process.env.DELETEPASS) {
       const data = await User.find().sort({ score: -1 });
       var x = 15;
       if (data.length >= x) {
@@ -25,6 +25,10 @@ exports.clearList = async (req, res) => {
       }
       res.status(200).json({
         message: "List cleared successfully",
+      });
+    } else {
+      res.status(400).json({
+        message: "Password Mismatch",
       });
     }
   } catch (err) {
@@ -52,11 +56,17 @@ exports.postData = async (req, res) => {
 
 exports.deleteData = async (req, res) => {
   try {
-    var data = await User.findByIdAndDelete(req.body._id);
-    res.status(401).json({
-      message: "Deleted",
-      deletedData: data,
-    });
+    if (req.body.pass === process.env.SINGLEDELETE) {
+      var data = await User.findByIdAndDelete(req.body._id);
+      res.status(200).json({
+        message: "Deleted",
+        deletedData: data,
+      });
+    } else {
+      res.status(400).json({
+        message: "Invalid Password",
+      });
+    }
   } catch (err) {
     res.status(400).json({
       message: "Failed",
@@ -66,12 +76,14 @@ exports.deleteData = async (req, res) => {
 };
 
 exports.deleteAll = async (req, res) => {
-  const pass = req.query.pass;
-  console.log(pass);
-  if (pass === "hunter29") {
-    await User.deleteMany();
-    res.send("Deleted Everything");
-  } else {
-    res.send("Invalid Password.");
+  try {
+    if (req.query.pass === process.env.DELETEPASS) {
+      await User.deleteMany();
+      res.status(200).json({ message: "Deleted Everything" });
+      res.status(401).json({ error: "Unauthorized: Invalid Password." });
+    }
+  } catch (error) {
+    console.error("Error deleting records:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
