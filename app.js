@@ -8,8 +8,8 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   var data = [
-    process.env.DELETEPASS,
-    process.env.SINGLEDELETE,
+    process.env.DELETEPASS || "one",
+    process.env.SINGLEDELETE || "two",
     process.env.PORT,
   ];
   data = data.toString();
