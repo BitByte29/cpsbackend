@@ -7,7 +7,14 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Server working");
+  var data = [
+    process.env.DELETEPASS,
+    process.env.SINGLEDELETE,
+    process.env.PORT,
+  ];
+  data = data.toString();
+  console.log(data);
+  res.send("Server working " + data);
 });
 
 app.get("/play", control.getData);
