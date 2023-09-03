@@ -6,15 +6,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//All environment variables need to be inserted in render website.
 app.get("/", (req, res) => {
-  var data = [
-    process.env.DELETEPASS || "one",
-    process.env.SINGLEDELETE || "two",
-    process.env.PORT,
-  ];
-  data = data.toString();
-  console.log(data);
-  res.send("Server working " + data);
+  // var data = [
+  //   process.env.DELETEPASS || "one",
+  //   process.env.SINGLEDELETE || "two",
+  //   process.env.PORT,
+  // ];
+  // data = data.toString();
+  // console.log(data);
+  res.send("Server working");
 });
 
 app.get("/play", control.getData);
